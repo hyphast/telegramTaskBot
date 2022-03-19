@@ -8,9 +8,9 @@ if (!TOKEN) {
 const bot = new Telegraf(TOKEN)
 bot.context.db = { fileIdArr: [] }
 bot.start(async (ctx) => {
-  await startCronJob(ctx, '0 10 22 * * *') // 0 0 11 * * * At 11:00
-  await startCronJob(ctx, '0 13 22 * * *') // 0 0 17 * * * At 17:00
-  await startCronJob(ctx, '0 15 22 * * *') // 0 0 19 * * * At 19:00
+  await startCronJob(ctx, '0 0 11 * * *') // 0 0 11 * * * At 11:00
+  await startCronJob(ctx, '0 0 17 * * *') // 0 0 17 * * * At 17:00
+  await startCronJob(ctx, '0 0 19 * * *') // 0 0 19 * * * At 19:00
   //await startCronJob(ctx, '*/20 * * * * *') // test
 })
 
