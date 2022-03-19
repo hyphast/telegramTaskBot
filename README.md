@@ -21,7 +21,10 @@
 ```
 $ npm run start
 ```
-3. If everything worked fine, ️bot works ✔️
+
+4. Start the bot.
+
+5. If everything worked fine, ️bot works ✔️
 ---
 ### Setting up cron job
 
