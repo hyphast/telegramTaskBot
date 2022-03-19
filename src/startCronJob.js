@@ -21,10 +21,12 @@ const startCronJob = async (ctx, timeTemplate, target) => {
     } catch(err) {
       console.log('ERROR!', err)
     }
-    //job.stop(); //TODO убрать!!!
+
   }, null, true, 'Europe/Moscow')
 
   job.start()
+
+  return job
 }
 
 module.exports = startCronJob
