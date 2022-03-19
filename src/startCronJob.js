@@ -1,18 +1,23 @@
 const CronJob = require('cron').CronJob
 
-const startCronJob = async (ctx, timeTemplate) => {
+const sendPhoto = async (fileIdArr, telegram, chat) => {
+  if (fileIdArr && fileIdArr.length > 0) {
+    const fileId = fileIdArr[fileIdArr.length - 1]
+    await telegram.sendPhoto(process.env[chat], fileId)
+    fileIdArr.pop()
+  }
+}
+
+const startCronJob = async (ctx, timeTemplate, target) => {
   const job = new CronJob(timeTemplate, async () => {
     console.log(`Cron job has been started: ${timeTemplate}`)
 
     try {
       const fileIdArr = ctx?.db?.fileIdArr
-      console.log('fileIdArr before', fileIdArr.length)
-      if (fileIdArr && fileIdArr.length > 0) {
-        const fileId = fileIdArr[fileIdArr.length - 1]
-        await ctx.telegram.sendPhoto(process.env.CHAT_ID, fileId)
-        fileIdArr.pop()
+      for (let chat of target) {
+        await sendPhoto(fileIdArr, ctx.telegram, chat)
       }
-      console.log('fileIdArr after', fileIdArr.length)
+      console.log('Images left:', fileIdArr.length)
     } catch(err) {
       console.log('ERROR!', err)
     }

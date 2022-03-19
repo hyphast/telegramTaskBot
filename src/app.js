@@ -1,4 +1,4 @@
-const {Telegraf} = require('telegraf')
+const { Telegraf } = require('telegraf')
 const startCronJob = require('./startCronJob')
 
 const TOKEN = process.env.BOT_TOKEN
@@ -8,17 +8,17 @@ if (!TOKEN) {
 const bot = new Telegraf(TOKEN)
 bot.context.db = { fileIdArr: [] }
 bot.start(async (ctx) => {
-  await startCronJob(ctx, '0 0 11 * * *') // 0 0 11 * * * At 11:00
-  await startCronJob(ctx, '0 0 17 * * *') // 0 0 17 * * * At 17:00
-  await startCronJob(ctx, '0 0 19 * * *') // 0 0 19 * * * At 19:00
-  //await startCronJob(ctx, '*/20 * * * * *') // test
+  console.log('Started')
+  await startCronJob(ctx, '0 0 10 * * *', ['FIRST_CHAT_ID', 'SECOND_CHAT_ID']) // 0 0 10 * * * At 11:00 UTC+4
+  await startCronJob(ctx, '0 0 16 * * *', ['FIRST_CHAT_ID']) // 0 0 16 * * * At 17:00 UTC+4
+  await startCronJob(ctx, '0 0 18 * * *', ['FIRST_CHAT_ID']) // 0 0 19 * * * At 19:00 UTC+4
 })
 
 bot.on('photo', (ctx) => {
   const photoArr = ctx.update.message.photo
   const fileId = photoArr[photoArr.length - 1]['file_id']
   ctx.db.fileIdArr.push(fileId)
-  console.log('ctx.db.fileIdArr.length', ctx.db.fileIdArr.length)
+  console.log('Number of photos:', ctx.db.fileIdArr.length)
   // await ctx.telegram.sendPhoto('-1001386766446', fileId)
   // const file = await ctx.telegram.getFile(fileId)
   // const filePath = file.file_path
