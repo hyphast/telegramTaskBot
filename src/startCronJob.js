@@ -7,7 +7,7 @@ const sendPhoto = async (fileIdArr, telegram, chat, isLastTime) => {
     if (isLastTime) {
       await telegram.sendPhoto(process.env[chat], fileId, {
         parse_mode: 'Markdown',
-        caption: 'Получить доступ в приват 👉 [teen girls❤️🔥🔥🔥](https://telegra.ph/Perehodnik-teen-girls-01-29)',
+        caption: 'Получить доступ в приват 👉 [teen girls❤️🔥🔥🔥](https://telegra.ph/Perehodnik-teen-girls-05-13)',
         reply_markup: { inline_keyboard: [
             [Markup.button.url('👉 ПРИВАТ 💖🔥', 'https://telegra.ph/Perehodnik-teen-girls-05-13')],
           ]}
