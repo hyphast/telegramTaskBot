@@ -15,9 +15,9 @@ bot.start(async (ctx) => {
   console.log('Started')
   await ctx.reply('Started')
   stopJobs(ctx)
-  const job1 = await startCronJob(ctx, '0 0 10 * * *', ['FIRST_CHAT_ID', 'SECOND_CHAT_ID']) // 0 0 10 * * * At 11:00 UTC+4
+  const job1 = await startCronJob(ctx, '0 0 10 * * *', ['FIRST_CHAT_ID']) // 0 0 10 * * * At 11:00 UTC+4
   const job2 = await startCronJob(ctx, '0 0 16 * * *', ['FIRST_CHAT_ID']) // 0 0 16 * * * At 17:00 UTC+4
-  const job3 = await startCronJob(ctx, '0 0 18 * * *', ['FIRST_CHAT_ID']) // 0 0 19 * * * At 19:00 UTC+4
+  const job3 = await startCronJob(ctx, '0 0 18 * * *', ['FIRST_CHAT_ID', 'SECOND_CHAT_ID']) // 0 0 19 * * * At 19:00 UTC+4
   ctx.db.jobs.push(job1)
   ctx.db.jobs.push(job2)
   ctx.db.jobs.push(job3)

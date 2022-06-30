@@ -1,9 +1,20 @@
+const { Markup } = require('telegraf')
 const CronJob = require('cron').CronJob
 
-const sendPhoto = async (fileIdArr, telegram, chat) => {
+const sendPhoto = async (fileIdArr, telegram, chat, isLastTime) => {
   if (fileIdArr && fileIdArr.length > 0) {
     const fileId = fileIdArr[fileIdArr.length - 1]
-    await telegram.sendPhoto(process.env[chat], fileId)
+    if (isLastTime) {
+      await telegram.sendPhoto(process.env[chat], fileId, {
+        parse_mode: 'Markdown',
+        caption: 'Получить доступ в приват 👉 [teen girls❤️🔥🔥🔥](https://telegra.ph/Perehodnik-teen-girls-01-29)',
+        reply_markup: { inline_keyboard: [
+            [Markup.button.url('👉 ПРИВАТ 💖🔥', 'https://telegra.ph/Perehodnik-teen-girls-05-13')],
+          ]}
+      })
+    } else {
+      await telegram.sendPhoto(process.env[chat], fileId)
+    }
     fileIdArr.pop()
   }
 }
@@ -14,8 +25,9 @@ const startCronJob = async (ctx, timeTemplate, target) => {
 
     try {
       const fileIdArr = ctx?.db?.fileIdArr
+      const isLastTime = timeTemplate === '0 0 18 * * *'
       for (let chat of target) {
-        await sendPhoto(fileIdArr, ctx.telegram, chat)
+        await sendPhoto(fileIdArr, ctx.telegram, chat, isLastTime)
       }
       console.log('Images left:', fileIdArr.length)
     } catch(err) {
